@@ -1,1 +1,57 @@
 
+#include<stdio.h>
+#include<windows.h>
+#include<conio.h>
+char aid[9][12]={
+	{"*#*********"},
+	{"****##*###*"},
+	{"#*#**#***##"},
+	{"*#**###**#*"},
+	{"***********"},
+	{"*#*##*##*##"},
+	{"#*#*****#*#"},
+	{"***#*###**E"},
+	{"*#********#"},
+};
+void print_aid()
+{
+	for(int a=0;a<9;a++)
+	{
+		puts(aid[a]);
+	}
+}
+int curX,curY;
+void show_guangbiao(int curX,int curY)
+{
+	COORD pos;
+	pos.X=curX;
+	pos.Y=curY;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
+}
+void main()
+{
+	while(1)
+	{
+		system("cls");
+		print_aid();
+		show_guangbiao(curX,curY);
+		char shuru=getch();
+		int b;
+		if(shuru=='w') b=1;
+		if(shuru=='s') b=2;
+		if(shuru=='a') b=3;
+		if(shuru=='d') b=4;
+		switch(b)
+		{
+		case 1:if((curY-1)>=0 && (aid[curY-1][curX]=='*'||aid[curY-1][curX]=='E')) curY--;break;
+		case 2:if((curY+1)<9 && (aid[curY+1][curX]=='*'||aid[curY+1][curX]=='E')) curY++;break;
+		case 3:if((curX-1)>=0 && (aid[curY][curX-1]=='*'||aid[curY][curX-1]=='E')) curX--;break;
+		case 4:if((curX+1)<11 && (aid[curY][curX+1]=='*'||aid[curY][curX+1]=='E')) curX++;break;
+		}
+		if(aid[curY][curX]=='E')
+		{
+			break;
+		}
+	}
+	printf("congradulate!,你可真是个小聪明");
+}
